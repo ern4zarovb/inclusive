@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="kk">
+<head>
+<meta charset="utf-8">
+<title>Буклет 2 · ішкі жағы</title>
+<link rel="stylesheet" href="css/fonts.css">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<style>
+  /* ---------- Слои и общая геометрия ---------- */
+  .sheet > .art {
+    position: absolute; left: 0; top: 0;
+    width: var(--page-w); height: var(--page-h);
+    z-index: 0; overflow: visible;
+  }
+  .panel { z-index: 1; display: flex; flex-direction: column; position: relative; }
+
+  /* SVG графика подложки */
+  .art path, .art line, .art circle { vector-effect: non-scaling-stroke; fill: none; stroke-width: var(--line); }
+  .art .ax         { stroke: var(--c-ink); }
+  .art .ax-blue    { stroke: var(--c-blue); }
+  .art .head-ink   { fill: var(--c-ink); stroke: none; }
+  .art .head-blue  { fill: var(--c-blue); stroke: none; }
+  .art .dash-blue  { stroke: var(--c-blue); stroke-dasharray: 2mm 2mm; }
+
+  /* Типографика */
+  .k-blue  { font-weight: 600; color: var(--c-blue); }
+  .ref     { font-size: var(--fs-note); white-space: nowrap; color: var(--c-ink); opacity: 0.85; }
+  .nowrap  { white-space: nowrap; }
+
+  /* Подписи на оси возраста */
+  .axis-age-label {
+    position: absolute; z-index: 2;
+    font-family: var(--f-display); font-weight: 700;
+    font-size: var(--fs-note); color: var(--c-blue);
+    white-space: nowrap;
+  }
+
+  /* ==================== ПАНЕЛЬ 1: АНЫҚТАМА ЖӘНЕ 8 САНАТ ==================== */
+  .panel h2 {
+    font-size: var(--fs-h2);
+    line-height: var(--lh-title);
+    color: var(--c-ink);
+    margin-bottom: var(--sp-2);
+  }
+  .panel-1 .lead {
+    font-size: 9pt;
+    line-height: 1.35;
+    margin-bottom: var(--sp-2);
+  }
+
+  /* Блок крупной цифры 0-18 */
+  .age-hero {
+    display: flex;
+    align-items: baseline;
+    gap: var(--sp-2);
+    margin-bottom: var(--sp-2);
+    padding: var(--sp-1) var(--sp-2);
+    background: rgba(30, 79, 160, 0.05);
+    border-left: calc(var(--line) * 2) solid var(--c-blue);
+  }
+  .age-hero .num {
+    font-size: 22pt;
+    line-height: 1;
+    color: var(--c-blue);
+    font-weight: 800;
+  }
+  .age-hero .sub {
+    font-size: var(--fs-note);
+    line-height: 1.25;
+    color: var(--c-ink);
+    opacity: 0.9;
+  }
+
+  .diag-note {
+    font-size: 8pt;
+    line-height: 1.3;
+    color: var(--c-ink);
+    opacity: 0.85;
+    margin-bottom: var(--sp-2);
+  }
+
+  /* Сетка 8 категорий */
+  .categories-box {
+    margin-top: 0;
+    margin-bottom: var(--sp-3);
+  }
+  .categories-title {
+    font-family: var(--f-display);
+    font-weight: 700;
+    font-size: var(--fs-note);
+    color: var(--c-blue);
+    margin-bottom: var(--sp-1);
+    letter-spacing: 0.4pt;
+  }
+  .categories-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.6mm;
+  }
+  .cat-tag {
+    font-size: 7.2pt;
+    line-height: 1.2;
+    padding: 1.2mm 1.6mm;
+    background: #fff;
+    border: var(--line) solid rgba(30, 79, 160, 0.25);
+    border-radius: 1mm;
+    color: var(--c-ink);
+    display: flex;
+    align-items: center;
+  }
+
+  /* ==================== ПАНЕЛЬ 2: 7 БАҒЫТ ==================== */
+  .panel-2 h2 {
+    color: var(--c-blue);
+    margin-bottom: var(--sp-3);
+  }
+  .dirs-list {
+    list-style: none; margin: 0; padding: 0;
+    display: flex; flex-direction: column;
+    gap: 11mm;
+    position: relative;
+    padding-left: 2mm;
+  }
+  .dir-item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    column-gap: 2.5mm;
+    position: relative;
+  }
+  .dir-badge {
+    display: flex;
+    align-items: center;
+    gap: 1.8mm;
+  }
+  .dir-badge .num {
+    font-size: 11pt;
+    line-height: 1;
+    font-weight: 800;
+    color: var(--c-blue);
+    width: 3.5mm;
+    text-align: center;
+  }
+  .dir-icon {
+    width: 5.5mm;
+    height: 5.5mm;
+    flex-shrink: 0;
+  }
+  .dir-icon circle, .dir-icon line, .dir-icon path, .dir-icon rect {
+    stroke: var(--c-blue);
+    stroke-width: 1.2;
+    fill: none;
+  }
+  .dir-item p {
+    margin: 0;
+    font-size: 8.2pt;
+    line-height: 1.3;
+  }
+
+  /* ==================== ПАНЕЛЬ 3: 8 КЕЗЕҢ ==================== */
+  .panel-3 h2 {
+    font-size: 15pt;
+    line-height: 1.15;
+    margin-bottom: var(--sp-3);
+  }
+  .stages-timeline {
+    position: relative;
+    padding-left: 7.5mm;
+    display: flex; flex-direction: column;
+    gap: 8.5mm;
+    margin-bottom: var(--sp-3);
+  }
+  .stage-item {
+    position: relative;
+    font-size: 8pt;
+    line-height: 1.28;
+    display: flex;
+    align-items: baseline;
+  }
+  .stage-num {
+    position: absolute;
+    left: -7.5mm; top: 0;
+    width: 5mm;
+    text-align: right;
+    font-family: var(--f-display);
+    font-weight: 800;
+    font-size: 10.5pt;
+    color: var(--c-blue);
+  }
+  .stages-note {
+    margin-top: var(--sp-3);
+    padding: var(--sp-2);
+    background: rgba(30, 79, 160, 0.08);
+    border-left: calc(var(--line) * 2) solid var(--c-blue);
+    font-size: 8.5pt;
+    line-height: 1.3;
+    font-weight: 500;
+    color: var(--c-blue);
+  }
+</style>
+</head>
+<body>
+<div class="sheet mm-grid">
+
+  <!-- ===== Единый рисунок SVG на весь лист 297×210 мм ===== -->
+  <svg class="art" viewBox="0 0 297 210" aria-hidden="true">
+    <!-- Главная горизонтальная ось «0 — 18 жас» через все три панели -->
+    <path class="ax" d="M12 192 H285"/>
+    <path class="head-ink" d="M289 192 L284 189.8 L284 194.2 Z"/>
+    
+    <!-- Засечки через каждые 10 мм по всей длине оси -->
+    <path class="ax" d="M20 192 V190 M30 192 V190 M40 192 V190 M50 192 V190 M60 192 V190 M70 192 V190 M80 192 V190 M90 192 V190 M100 192 V188 M110 192 V190 M120 192 V190 M130 192 V190 M140 192 V190 M150 192 V190 M160 192 V190 M170 192 V190 M180 192 V190 M190 192 V190 M200 192 V188 M210 192 V190 M220 192 V190 M230 192 V190 M240 192 V190 M250 192 V190 M260 192 V190 M270 192 V190 M280 192 V190"/>
+
+    <!-- Панель 2: вертикальный ответвлённый вектор направлений с 7 стрелками-отметками -->
+    <path class="ax-blue" d="M106 192 V18"/>
+    <path class="head-blue" d="M106 14 L103.8 19 L108.2 19 Z"/>
+    <!-- 7 горизонтальных стрелок-отметок точно по центру каждого направления -->
+    <path class="ax-blue" d="
+      M106 25.5 H108.8 M108.8 25.5 L107.6 24.5 M108.8 25.5 L107.6 26.5
+      M106 45.9 H108.8 M108.8 45.9 L107.6 44.9 M108.8 45.9 L107.6 46.9
+      M106 65.3 H108.8 M108.8 65.3 L107.6 64.3 M108.8 65.3 L107.6 66.3
+      M106 81.8 H108.8 M108.8 81.8 L107.6 80.8 M108.8 81.8 L107.6 82.8
+      M106 99.3 H108.8 M108.8 99.3 L107.6 98.3 M108.8 99.3 L107.6 100.3
+      M106 119.7 H108.8 M108.8 119.7 L107.6 118.7 M108.8 119.7 L107.6 120.7
+      M106 140.1 H108.8 M108.8 140.1 L107.6 139.1 M108.8 140.1 L107.6 141.1
+    "/>
+
+    <!-- Панель 3: вертикальная шкала этапов обследования с засечками -->
+    <path class="ax-blue" d="M206 16 V146"/>
+    <path class="head-blue" d="M206 150 L203.8 145 L208.2 145 Z"/>
+    <!-- 8 засечек шкалы точно напротив цифр каждого этапа -->
+    <path class="ax-blue" d="
+      M204 21.9 H207.5
+      M204 34.0 H207.5
+      M204 49.7 H207.5
+      M204 65.5 H207.5
+      M204 77.6 H207.5
+      M204 89.7 H207.5
+      M204 101.8 H207.5
+      M204 113.9 H207.5
+    "/>
+  </svg>
+
+  <!-- Точка-ребёнок на оси «0 — 18 жас» слева -->
+  <span class="dot" style="position:absolute; z-index:2; left: calc(20mm - var(--dot-r)); top: calc(192mm - var(--dot-r));"></span>
+
+  <!-- Текстовые метки на горизонтальной оси -->
+  <span class="axis-age-label" style="left: 17mm; top: 194mm;">0 жас</span>
+  <span class="axis-age-label" style="left: 95mm; top: 194mm;">6–7 жас</span>
+  <span class="axis-age-label" style="left: 275mm; top: 194mm;">18 жас</span>
+
+  <!-- ==================== ПАНЕЛЬ 1: БЛОК B2.p1 (100 мм) ==================== -->
+  <section class="panel panel-1">
+    <h2>ПМПК деген не?</h2>
+    <p class="lead">ПМПК&nbsp;— баланы тексеріп, отбасына кеңес беретін, ерекше білім беру қажеттіліктерін бағалайтын және білім беру бағдарламасының түрін анықтайтын білім беру ұйымы.</p>
+
+    <div class="age-hero">
+      <span class="num">0–18 жас</span>
+      <span class="sub">баланы туғаннан бастап 18 жасқа дейін тексереді</span>
+    </div>
+
+    <p class="diag-note">Қорытындыда медициналық диагноз қолданылмайды. Ол әлеуметтік-педагогикалық жіктемеге сүйенеді.</p>
+
+    <div class="categories-box">
+      <div class="categories-title">8 САНАТ:</div>
+      <div class="categories-grid">
+        <div class="cat-tag">Есту</div>
+        <div class="cat-tag">Көру</div>
+        <div class="cat-tag">Тірек-қимыл аппараты</div>
+        <div class="cat-tag">Интеллект</div>
+        <div class="cat-tag">Психикалық дамудың тежелуі</div>
+        <div class="cat-tag">Сөйлеу</div>
+        <div class="cat-tag">Қарым-қатынас пен әлеуметтік өзара әрекет</div>
+        <div class="cat-tag">Мінез-құлық</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== ПАНЕЛЬ 2: БЛОК B2.p2 (100 мм) ==================== -->
+  <section class="panel panel-2">
+    <h2>7 негізгі бағыт</h2>
+
+    <ol class="dirs-list">
+      <li class="dir-item">
+        <div class="dir-badge">
+          <span class="num">1</span>
+          <svg class="dir-icon" viewBox="0 0 20 20"><circle cx="10" cy="10" r="7"/><line x1="10" y1="3" x2="10" y2="17"/><line x1="3" y1="10" x2="17" y2="10"/></svg>
+        </div>
+        <p>0–18 жастағы балаларды психологиялық-медициналық-педагогикалық тексеру</p>
+      </li>
+      <li class="dir-item">
+        <div class="dir-badge">
+          <span class="num">2</span>
+          <svg class="dir-icon" viewBox="0 0 20 20"><path d="M4 14 L10 6 L16 14 Z"/></svg>
+        </div>
+        <p>Ерекше білім беру қажеттіліктерін анықтау және оларды қанағаттандыру бойынша ұсынымдар беру</p>
+      </li>
+      <li class="dir-item">
+        <div class="dir-badge">
+          <span class="num">3</span>
+          <svg class="dir-icon" viewBox="0 0 20 20"><rect x="4" y="4" width="12" height="12"/><line x1="4" y1="8" x2="16" y2="8"/></svg>
+        </div>
+        <p>Оқу бағдарламасының түрін белгілеу</p>
+      </li>
+      <li class="dir-item">
+        <div class="dir-badge">
+          <span class="num">4</span>
+          <svg class="dir-icon" viewBox="0 0 20 20"><circle cx="7" cy="8" r="3"/><circle cx="13" cy="8" r="3"/><path d="M4 16 Q10 11 16 16"/></svg>
+        </div>
+        <p>Отбасына кеңес беру</p>
+      </li>
+      <li class="dir-item">
+        <div class="dir-badge">
+          <span class="num">5</span>
+          <svg class="dir-icon" viewBox="0 0 20 20"><line x1="3" y1="10" x2="17" y2="10"/><path d="M12 5 L17 10 L12 15"/></svg>
+        </div>
+        <p>Мұғалімдер мен тәрбиешілерге консультациялық-әдістемелік көмек көрсету</p>
+      </li>
+      <li class="dir-item">
+        <div class="dir-badge">
+          <span class="num">6</span>
+          <svg class="dir-icon" viewBox="0 0 20 20"><circle cx="5" cy="10" r="2.5"/><circle cx="15" cy="5" r="2.5"/><circle cx="15" cy="15" r="2.5"/><line x1="7.5" y1="10" x2="12.5" y2="6"/><line x1="7.5" y1="10" x2="12.5" y2="14"/></svg>
+        </div>
+        <p>Білім, денсаулық сақтау, әлеуметтік қорғау және қоғамдық ұйымдармен бірлесіп, балаларды уақытында анықтау</p>
+      </li>
+      <li class="dir-item">
+        <div class="dir-badge">
+          <span class="num">7</span>
+          <svg class="dir-icon" viewBox="0 0 20 20"><rect x="4" y="3" width="12" height="14"/><line x1="7" y1="7" x2="13" y2="7"/><line x1="7" y1="11" x2="13" y2="11"/></svg>
+        </div>
+        <p>Ерекше білім беру қажеттіліктері бар балалардың есебін жүргізу</p>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ==================== ПАНЕЛЬ 3: БЛОК B2.p3 (97 мм) ==================== -->
+  <section class="panel narrow panel-3">
+    <h2>Тексеру қалай өтеді: 8 кезең</h2>
+
+    <div class="stages-timeline">
+      <div class="stage-item"><span class="stage-num">1</span>Ата-ананың өтініші мен сұрағы</div>
+      <div class="stage-item"><span class="stage-num">2</span>Анамнез және әлеуметтік жағдай туралы мәлімет</div>
+      <div class="stage-item"><span class="stage-num">3</span>Тексеру: психологиялық, логопедиялық, педагогикалық, неврологиялық және психиатриялық, әлеуметтік-педагогикалық</div>
+      <div class="stage-item"><span class="stage-num">4</span>Нәтижені мамандардың бірлесіп талқылауы</div>
+      <div class="stage-item"><span class="stage-num">5</span>Ерекше білім беру қажеттіліктерін анықтау</div>
+      <div class="stage-item"><span class="stage-num">6</span>Жалпы қорытынды</div>
+      <div class="stage-item"><span class="stage-num">7</span>Ата-анаға кеңес</div>
+      <div class="stage-item"><span class="stage-num">8</span>Кері байланыс</div>
+    </div>
+
+    <div class="stages-note">
+      Алғашқы тексеру бір-төрт қабылдау ішінде өтеді.
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

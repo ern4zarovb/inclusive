@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="kk">
+<head>
+<meta charset="utf-8">
+<title>Буклет 1 · ішкі жағы</title>
+<link rel="stylesheet" href="css/fonts.css">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<style>
+  /* ---------- Слои: рисунок под текстом ---------- */
+  .sheet > .art {
+    position: absolute; left: 0; top: 0;
+    width: var(--page-w); height: var(--page-h);
+    z-index: 0; overflow: visible;
+  }
+  .panel { z-index: 1; display: flex; flex-direction: column; }
+
+  /* viewBox в мм (1 ед. = 1 мм); толщины берём из токенов в мм через non-scaling-stroke */
+  .art path, .art line, .art circle { vector-effect: non-scaling-stroke; fill: none; stroke-width: var(--line); }
+  .art .ax    { stroke: var(--c-ink); }
+  .art .edge  { stroke: var(--c-teal); }
+  .art .dash  { stroke-dasharray: var(--sp-1) var(--sp-1); }
+  .art .vec   { stroke: var(--c-teal); }
+  .art .alt   { stroke: var(--c-blue); stroke-dasharray: var(--sp-1) var(--sp-1); }
+  .art .goal  { stroke: var(--c-teal); }
+  .art .head-ink  { fill: var(--c-ink);  stroke: none; }
+  .art .head-teal { fill: var(--c-teal); stroke: none; }
+  .art .head-blue { fill: var(--c-blue); stroke: none; }
+
+  /* Подписи осей (HTML поверх SVG, маркеры формы из base.css) */
+  .axis-label {
+    position: absolute; z-index: 2;
+    font-family: var(--f-display); font-weight: 700;
+    font-size: var(--fs-h3); line-height: var(--lh-title);
+    color: var(--c-ink); white-space: nowrap;
+  }
+  .axis-label::before, .axes li::before { color: var(--c-teal); }
+
+  /* Точка-ребёнок */
+  .sheet > .dot { position: absolute; z-index: 2; }
+
+  /* ---------- Типографика панелей ---------- */
+  .panel h2 { margin-bottom: var(--sp-2); }
+  .panel .lead { margin-bottom: var(--sp-3); }
+  .k   { font-weight: 500; color: var(--c-teal); }
+  .ref { font-size: var(--fs-note); white-space: nowrap; }
+  .nowrap { white-space: nowrap; }
+
+  /* Панель 1: три оси */
+  .axes { list-style: none; margin: 0 0 var(--sp-2); padding: 0; }
+  .axes li { position: relative; padding-left: var(--sp-3); margin-bottom: var(--sp-2); }
+  .axes li::before { position: absolute; left: 0; top: 0; margin: 0; }
+  .sum { font-weight: 500; }
+
+  /* Панель 2: цепочка шагов */
+  .steps { list-style: none; margin: 0; padding: 0; }
+  .steps li {
+    display: grid;
+    grid-template-columns: calc(var(--sp-5) + var(--sp-2)) 1fr;
+    align-items: start;
+    margin-bottom: var(--sp-2);
+  }
+  .steps .num {
+    font-size: var(--fs-big); line-height: var(--lh-title);
+    color: var(--c-teal);
+    height: var(--sp-5); /* бокс ниже глифа: высоту строки задаёт текст */
+  }
+  .steps p { margin: 0; padding-top: var(--sp-1); }
+
+  /* Панель 3 */
+  .tag {
+    align-self: flex-start;
+    border: var(--line) solid var(--c-blue); color: var(--c-blue);
+    font-weight: 500; padding: var(--sp-1) var(--sp-2);
+    margin-bottom: var(--sp-3);
+  }
+  .tips p { margin-bottom: var(--sp-3); }
+</style>
+</head>
+<body>
+<div class="sheet mm-grid">
+
+  <!-- ===== Один непрерывный рисунок на весь лист 297×210 мм ===== -->
+  <svg class="art" viewBox="0 0 297 210" aria-hidden="true">
+    <!-- Ось X: через весь лист, пересекает оба сгиба -->
+    <path class="ax" d="M10 184 H285"/>
+    <path class="head-ink" d="M289 184 L284 181.8 L284 186.2 Z"/>
+    <path class="ax" id="ticks-x" d="M20 184 V182.6 M25 184 V182.6 M30 184 V182.6 M35 184 V182.6 M40 184 V182.6 M45 184 V182.6 M50 184 V182.6 M55 184 V182.6 M60 184 V182.6 M65 184 V182.6 M70 184 V182.6 M75 184 V182.6 M80 184 V182.6 M85 184 V182.6 M90 184 V182.6 M95 184 V182.6 M100 184 V182.6 M105 184 V182.6 M110 184 V182.6 M115 184 V182.6 M120 184 V182.6 M125 184 V182.6 M130 184 V182.6 M135 184 V182.6 M140 184 V182.6 M145 184 V182.6 M150 184 V182.6 M155 184 V182.6 M160 184 V182.6 M165 184 V182.6 M170 184 V182.6 M175 184 V182.6 M180 184 V182.6 M185 184 V182.6 M190 184 V182.6 M195 184 V182.6 M200 184 V182.6 M205 184 V182.6 M210 184 V182.6 M215 184 V182.6 M220 184 V182.6 M225 184 V182.6 M230 184 V182.6 M235 184 V182.6 M240 184 V182.6 M245 184 V182.6 M250 184 V182.6 M255 184 V182.6 M260 184 V182.6 M265 184 V182.6 M270 184 V182.6 M275 184 V182.6 M280 184 V182.6"/>
+    <!-- Ось Y -->
+    <path class="ax" d="M16 190 V141"/>
+    <path class="head-ink" d="M16 137 L13.8 142 L18.2 142 Z"/>
+    <path class="ax" id="ticks-y" d="M16 179 H17.4 M16 174 H17.4 M16 169 H17.4 M16 164 H17.4 M16 159 H17.4 M16 154 H17.4 M16 149 H17.4 M16 144 H17.4"/>
+    <!-- Ось Z (глубина, косоугольная проекция) -->
+    <path class="ax" d="M16 184 L79.3 135.1"/>
+    <path class="head-ink" d="M83.2 132.1 L80.64 136.84 L77.96 133.36 Z"/>
+    <!-- Параллелепипед «безопасного пространства», натянутый на оси X·Y·Z -->
+    <path class="edge" d="M64 184 V154 H16 M16 154 L36.6 138.1 H84.6 L64 154 M64 184 L84.6 168.1 V138.1"/>
+    <path class="edge dash" d="M36.6 168.1 H84.6 M36.6 168.1 V138.1"/>
+
+    <g id="flow">
+    <circle class="vec" cx="103.5" cy="41.4" r="1.4"/>
+    <path class="vec" d="M103.5 42.8 C103.5 46.4 104.6 48.4 104.6 48.4"/><path class="head-teal" d="M108.6 48.4 L104.6 50.2 L104.6 46.6 Z"/>
+    <path class="vec" d="M107.6 61 C101.8 63 101.8 67.5 104.9 68.9"/><path class="head-teal" d="M108.6 70.5 L104.2 70.5 L105.7 67.2 Z"/>
+    <path class="vec" d="M107.6 83.1 C101.8 85.1 101.8 89.6 104.9 91"/><path class="head-teal" d="M108.6 92.6 L104.2 92.6 L105.7 89.3 Z"/>
+    <path class="vec" d="M107.6 105.2 C101.8 107.2 101.8 111.7 104.9 113.1"/><path class="head-teal" d="M108.6 114.7 L104.2 114.7 L105.7 111.4 Z"/>
+    <path class="vec" d="M107.6 127.3 C101.8 129.3 101.8 139.2 104.9 140.6"/><path class="head-teal" d="M108.6 142.2 L104.2 142.2 L105.7 138.9 Z"/>
+    <path class="vec" d="M107.6 154.8 C101.8 164.8 116 172 140 172 S 196 171 214 167"/>
+    <path class="vec" d="M214 167 C224 164.5 236 170 243.6 163.8"/><path class="head-teal" d="M246.7 161.3 L244.8 165.2 L242.5 162.4 Z"/>
+    <path class="alt" d="M84.6 168.1 C 100 176 130 179 165 178.5 S 222 178 230 176"/>
+    <path class="alt" d="M230 176 C233 175 238 178 246 166"/><path class="head-blue" d="M248.2 162.7 L247.5 167 L244.5 165 Z"/>
+    <path class="alt" d="M276 184 C276 176 268 172 259.9 164.4"/><path class="head-blue" d="M257 161.7 L261.1 163.1 L258.6 165.7 Z"/>
+    <circle class="goal" cx="252" cy="157" r="6"/>
+    </g>
+  </svg>
+
+  <!-- Подписи осей -->
+  <span class="axis-label shape-x" style="left: 68mm; top: 186mm;">X</span>
+  <span class="axis-label shape-y" style="left: 20mm; top: 131mm;">Y</span>
+  <span class="axis-label shape-z" style="left: 85mm; top: 126mm;">Z</span>
+
+  <!-- Точка-ребёнок: цель, к которой сходятся все пути -->
+  <span class="dot" style="left: calc(252mm - var(--dot-r)); top: calc(157mm - var(--dot-r));"></span>
+
+  <!-- ===== Панель 1 · B1.p1 ===== -->
+  <section class="panel">
+    <h2>Қауіпсіз орта<br>дегеніміз не?</h2>
+    <p class="lead">Қауіпсіз орта&nbsp;— әр оқушы үш бағытта өзін сенімді сезінетін орта.</p>
+    <ul class="axes">
+      <li class="shape-x"><span class="k">X · Физикалық:</span> тар өтпе жол, ыңғайсыз жұмыс орны, шамадан тыс шу мен жарық болмауы керек. <span class="ref">(сл. 6)</span></li>
+      <li class="shape-y"><span class="k">Y · Психологиялық:</span> мазақ, төмен күту жоқ, ешкім ортақ іс-әрекеттен шеттетілмейді. <span class="ref">(сл. 6)</span></li>
+      <li class="shape-z"><span class="k">Z · Ақпараттық:</span> материал бір форматпен шектелмейді, нұсқаулық түсінікті, жауап берудің бірнеше тәсілі бар. <span class="ref">(сл. 6)</span></li>
+    </ul>
+    <p class="sum">Үш бағытта да кедергі болмаса, оқушы өзін ұжымның мүшесі ретінде сезінеді. <span class="ref">(сл. 4)</span></p>
+  </section>
+
+  <!-- ===== Панель 2 · B1.p2 ===== -->
+  <section class="panel">
+    <h2>Мұғалімнің 5 қадамы</h2>
+    <p class="lead">Бір есепті әртүрлі жолмен шешуге болатыны сияқты, оқушыны да әртүрлі жолмен қолдауға болады.</p>
+    <ol class="steps">
+      <li><span class="num">1</span><p><span class="k">Қажеттілікті біл.</span> Оқушының күшті жақтарын және оқуына кедергі болатын жағдайларды ескер. <span class="ref">(сл. 5)</span></p></li>
+      <li><span class="num">2</span><p><span class="k">Нұсқаулықты қадамдарға бөл.</span> Тапсырманы қысқа етіп, <span class="nowrap">кезең-кезеңмен</span> түсіндір, үлгі көрсет. <span class="ref">(сл. 10)</span></p></li>
+      <li><span class="num">3</span><p><span class="k">Материалды әртүрлі форматта бер.</span> Мәтін, сызба, формула, көрнекілік&nbsp;— таңдау болсын. <span class="ref">(сл. 10)</span></p></li>
+      <li><span class="num">4</span><p><span class="k">Жауап беру тәсілін таңдау мүмкіндігін бер.</span> Мақсат ұғымды түсінуді тексеру болса, ауызша жауап немесе сызба орынды. <span class="ref">(сл. 10)</span></p></li>
+      <li><span class="num">5</span><p><span class="k">Нәтижені қайта қара.</span> Қай тәсіл көмектескенін тіркеп, қолдауды түзет. <span class="ref">(сл. 10, 20)</span></p></li>
+    </ol>
+  </section>
+
+  <!-- ===== Панель 3 · B1.p3 (97 мм) ===== -->
+  <section class="panel narrow">
+    <h2>Математика мен физика сабағында</h2>
+    <p class="tag">Авторлық ұсыныстар,<br>нормативтік талап емес</p>
+    <div class="tips">
+      <p><span class="k">Лабораториялық жұмыс:</span> қауіпсіздік ережесін сызба мен үлгі арқылы көрсет, жұмыс орнын алдын ала ыңғайла.</p>
+      <p><span class="k">Бақылау жұмысы:</span> тапсырма көлемі мен уақытты бейімде, қатты мазасызданатын оқушыға алдын ала нұсқаулық бер.</p>
+      <p><span class="k">Қателікке құқық:</span> қате&nbsp;— талдауға арналған материал, мазақ ететін себеп емес.</p>
+      <p><span class="k">Топтық жұмыс:</span> әр оқушыға өзі таңдай алатын және орындай алатын рөл ұсын. <span class="ref">(сл. 11, 23)</span></p>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>
